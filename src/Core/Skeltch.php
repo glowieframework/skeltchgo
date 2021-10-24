@@ -1,7 +1,7 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
     
-    use SkeltchGo\SkeltchGo;
+    use Glowie\SkeltchGo\SkeltchGo;
     use Exception;
 
     /**

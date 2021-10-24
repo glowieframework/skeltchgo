@@ -1,5 +1,5 @@
 <?php
-    namespace SkeltchGo;
+    namespace Glowie\SkeltchGo;
 
     /**
      * Standalone Skeltch templating engine.

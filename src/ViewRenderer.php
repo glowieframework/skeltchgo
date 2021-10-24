@@ -1,11 +1,11 @@
 <?php
-    namespace SkeltchGo;
+    namespace Glowie\SkeltchGo;
 
     use Exception;
     use Closure;
-    use SkeltchGo\Core\Element;
-    use SkeltchGo\Core\View;
-    use SkeltchGo\Core\Layout;
+    use Glowie\SkeltchGo\Core\Element;
+    use Glowie\SkeltchGo\Core\View;
+    use Glowie\SkeltchGo\Core\Layout;
 
     /**
      * View renderer for SkeltchGo.

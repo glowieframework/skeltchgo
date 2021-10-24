@@ -1,8 +1,8 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
 
-    use SkeltchGo\Core\ElementTrait;
-    use SkeltchGo\SkeltchGo;
+    use Glowie\SkeltchGo\Core\ElementTrait;
+    use Glowie\SkeltchGo\SkeltchGo;
     use BadMethodCallException;
 
     /**

@@ -1,5 +1,5 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
 
     /**
      * Generic safe object trait for SkeltchGo.

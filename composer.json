@@ -1,6 +1,6 @@
 {
     "name": "glowieframework/skeltchgo",
-    "description": "Standalone Skeltch templating engine",
+    "description": "Standalone Skeltch templating engine for PHP",
     "license": "MIT",
     "keywords": [
         "templating",
@@ -21,7 +21,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "SkeltchGo\\": "src/"
+            "Glowie\\SkeltchGo\\": "src/"
         }
     },
     "minimum-stability": "dev",

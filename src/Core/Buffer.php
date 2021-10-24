@@ -1,5 +1,5 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
 
     /**
      * Output buffer handler for SkeltchGo.

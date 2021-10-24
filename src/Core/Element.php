@@ -1,7 +1,7 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
 
-    use SkeltchGo\Core\ElementTrait;
+    use Glowie\SkeltchGo\Core\ElementTrait;
 
     /**
      * Generic safe object instance for SkeltchGo.

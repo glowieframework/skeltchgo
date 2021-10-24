@@ -1,10 +1,10 @@
 <?php
-    namespace SkeltchGo\Core;
+    namespace Glowie\SkeltchGo\Core;
 
-    use SkeltchGo\Core\ElementTrait;
-    use SkeltchGo\Core\Buffer;
+    use Glowie\SkeltchGo\Core\ElementTrait;
+    use Glowie\SkeltchGo\Core\Buffer;
+    use Glowie\SkeltchGo\SkeltchGo;
     use BadMethodCallException;
-    use SkeltchGo\SkeltchGo;
 
     /**
      * View core for SkeltchGo.
