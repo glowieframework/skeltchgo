@@ -39,13 +39,12 @@
          */
         public function __construct(string $view, array $params, bool $parse){
             // Parse parameters
-            $this->_path = $view;
             $viewData = SkeltchGo::getRenderer()->view->toArray();
             if(!empty($viewData)) foreach ($viewData as $key => $value) $this->{$key} = $value;
             if(!empty($params)) foreach($params as $key => $value) $this->{$key} = $value;
 
             // Render view
-            if(SkeltchGo::getCache()) $this->_path = Skeltch::run($this->_path);
+            $this->_path = Skeltch::run($view);
             $this->_content = $this->getBuffer();
             if($parse) echo $this->_content;
         }

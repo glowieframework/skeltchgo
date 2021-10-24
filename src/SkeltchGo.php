@@ -38,6 +38,11 @@
         private static $viewsFolder;
 
         /**
+         * Disable the constructor instance.
+         */
+        private function __construct(){}
+
+        /**
          * Starts SkeltchGo module.
          * @param string $viewsFolder (Optional) Folder where the view files are stored, relative to the running script.
          * @param bool $cache (Optional) Enable views caching. Highly recommended in a production environment.
