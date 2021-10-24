@@ -14,7 +14,7 @@ composer require glowieframework/skeltchgo
 Create an SkeltchGo instance through the static `make()` method.
 
 ```php
-use SkeltchGo\SkeltchGo;
+use Glowie\SkeltchGo\SkeltchGo;
 $skeltch = SkeltchGo::make();
 ```
 
