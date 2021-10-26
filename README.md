@@ -1,19 +1,25 @@
 # SkeltchGo
-SkeltchGo is a standalone version of [Glowie](https://github.com/glowieframework/glowie) Skeltch templating engine for PHP, intented to use from outside the framework.
+SkeltchGo is a standalone version of [Glowie](https://github.com/glowieframework/glowie) Skeltch templating engine for PHP, intented to use outside the framework.
 
 ## Requirements
 - PHP version 7.4 or higher
 - Composer version 2.0 or higher
 
 ## Installation
+Through Composer:
+
 ```
 composer require glowieframework/skeltchgo
 ```
 
 ## Usage
-Create an SkeltchGo instance through the static `make()` method.
+Create a SkeltchGo instance through the static `make()` method.
 
 ```php
+// Load Composer autoloader
+require_once('vendor/autoload.php');
+
+// Start SkeltchGo
 use Glowie\SkeltchGo\SkeltchGo;
 $skeltch = SkeltchGo::make();
 ```
@@ -23,8 +29,8 @@ This method returns an instance of `ViewRenderer`.
 The `make()` method accepts three optional arguments:
 
 - `viewFolder` (string) - Folder where the view files are stored, relative to the running script. (Defaults to `views`)
-- `cache` (bool) - Enable views caching. Highly recommended in a production environment. (Defaults to `true`)
 - `cacheFolder` (string) - View cache folder, relative to the running script. **Must have writing permissions.** (Defaults to `cache`)
+- `cache` (bool) - Enable views caching. Highly recommended in a production environment. (Defaults to `true`)
 
 ## Rendering views
 Views must be `.phtml` files inside the views folder. Extension is not needed.
@@ -63,18 +69,18 @@ There are two ways of passing parameters to the views:
 
 ```php
 // Globally to all views
-$skeltch->view->param1 = 'Lorem ipsum';
+$skeltch->view->myParam = 'Lorem ipsum';
 
 // Restricted to a single view
 $skeltch->renderView('myView', [
-    'param2' => 'Hello world'
+    'myParam' => 'Lorem ipsum'
 ]);
 ```
 
 Then retrieve it in the view as a property of itself:
 
 ```php
-{{$this->param1}}
+{{$this->myParam}}
 ```
 
 ## View helpers
@@ -86,7 +92,7 @@ $skeltch->helper('sayHello', function($name){
 });
 ```
 
-And call it in your view file using:
+Then call it in your view file using:
 
 ```php
 {{$this->sayHello('World')}}

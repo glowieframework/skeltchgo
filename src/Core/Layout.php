@@ -39,7 +39,7 @@
         public function __construct(string $layout, string $view, array $params){
             // Parse parameters
             $viewData = SkeltchGo::getRenderer()->view->toArray();
-            if(!empty($viewData)) foreach ($viewData as $key => $value) $this->{$key} = $value;
+            $params = array_merge($viewData, $params);
             if(!empty($params)) foreach($params as $key => $value) $this->{$key} = $value;
 
             // Parse view

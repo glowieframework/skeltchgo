@@ -2,7 +2,6 @@
     namespace Glowie\SkeltchGo\Core;
 
     use Glowie\SkeltchGo\Core\ElementTrait;
-    use Glowie\SkeltchGo\Core\Buffer;
     use Glowie\SkeltchGo\SkeltchGo;
     use BadMethodCallException;
 
@@ -40,7 +39,7 @@
         public function __construct(string $view, array $params, bool $parse){
             // Parse parameters
             $viewData = SkeltchGo::getRenderer()->view->toArray();
-            if(!empty($viewData)) foreach ($viewData as $key => $value) $this->{$key} = $value;
+            $params = array_merge($viewData, $params);
             if(!empty($params)) foreach($params as $key => $value) $this->{$key} = $value;
 
             // Render view
@@ -67,9 +66,9 @@
          * @return string The buffer contents as string.
          */
         private function getBuffer(){
-            Buffer::start();
+            ob_start();
             include($this->_path);
-            return Buffer::get();
+            return ob_get_clean();
         }
 
         /**

@@ -43,13 +43,13 @@
         private function __construct(){}
 
         /**
-         * Starts SkeltchGo module.
+         * Creates a SkeltchGo instance.
          * @param string $viewsFolder (Optional) Folder where the view files are stored, relative to the running script.
-         * @param bool $cache (Optional) Enable views caching. Highly recommended in a production environment.
          * @param string $cacheFolder (Optional) View cache folder, relative to the running script. **Must have writing permissions.**
+         * @param bool $cache (Optional) Enable views caching. Highly recommended in a production environment.
          * @return ViewRenderer Returns an instance of the view renderer.
          */
-        public static function make(string $viewsFolder = 'views', bool $cache = true, string $cacheFolder = 'cache'){
+        public static function make(string $viewsFolder = 'views', string $cacheFolder = 'cache', bool $cache = true){
             self::$cache = $cache;
             self::$renderer = new ViewRenderer();
             self::$cacheFolder = $cacheFolder . (!self::endsWith($cacheFolder, '/') ? '/' : '');
