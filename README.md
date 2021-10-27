@@ -1,5 +1,16 @@
-# SkeltchGo
-SkeltchGo is a standalone version of [Glowie](https://github.com/glowieframework/glowie) Skeltch templating engine for PHP, intented to use outside the framework.
+<p align="center">
+    <a href="https://glowie.tk" target="_blank"><img src="https://i.imgur.com/866QYsH.png" alt="SkeltchGo" width="250"/></a>
+</p>
+
+<p align="center">
+    <a href="https://packagist.org/packages/glowieframework/skeltchgo"><img src="https://img.shields.io/github/v/release/glowieframework/skeltchgo" alt="Latest Version"></a>
+    <a href="https://packagist.org/packages/glowieframework/skeltchgo" target="_blank"><img src="https://img.shields.io/packagist/dt/glowieframework/skeltchgo" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/glowieframework/skeltchgo" target="_blank"><img src="https://img.shields.io/github/license/glowieframework/skeltchgo" alt="License"></a>
+    <a href="https://packagist.org/packages/glowieframework/skeltchgo" target="_blank"><img src="https://img.shields.io/packagist/php-v/glowieframework/skeltchgo" alt="PHP Version"></a>
+</p>
+
+## Lightweight PHP templating engine
+SkeltchGo is a standalone version of [Glowie](https://glowie.tk) Skeltch templating engine for PHP, intented to use outside the framework.
 
 ## Requirements
 - PHP version 7.4 or higher
@@ -16,10 +27,10 @@ composer require glowieframework/skeltchgo
 Create a SkeltchGo instance through the static `make()` method.
 
 ```php
-// Load Composer autoloader
+// Include Composer autoloader
 require_once('vendor/autoload.php');
 
-// Start SkeltchGo
+// Setup SkeltchGo
 use Glowie\SkeltchGo\SkeltchGo;
 $skeltch = SkeltchGo::make();
 ```
@@ -68,10 +79,10 @@ To retrieve the internal view content inside the layout use:
 There are two ways of passing parameters to the views:
 
 ```php
-// Globally to all views
+// Globally to all views at once
 $skeltch->view->myParam = 'Lorem ipsum';
 
-// Restricted to a single view
+// Restricted to a single view and its childs
 $skeltch->renderView('myView', [
     'myParam' => 'Lorem ipsum'
 ]);
@@ -98,7 +109,7 @@ Then call it in your view file using:
 {{$this->sayHello('World')}}
 ```
 
-## Full documentation
+## Documentation
 To learn how to use all methods and templating syntax, read [Skeltch complete documentation](https://glowie.tk/docs/latest/extra/skeltch).
 
 > **Note:** some Skeltch methods are restricted to the framework environment and are not available in SkeltchGo. Unavailable methods are: `babel`, `url`, `route`, `asset` and `csrf`.

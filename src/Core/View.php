@@ -25,10 +25,10 @@
         private $_content;
 
         /**
-         * View compiled file path.
-         * @var string
+         * View local parameters.
+         * @var array
          */
-        private $_path;
+        private $_params;
 
         /**
          * Instantiates a new View object.
@@ -38,13 +38,14 @@
          */
         public function __construct(string $view, array $params, bool $parse){
             // Parse parameters
-            $viewData = SkeltchGo::getRenderer()->view->toArray();
-            $params = array_merge($viewData, $params);
+            $this->_params = $params;
+            $globalParams = SkeltchGo::getRenderer()->view->toArray();
+            $params = array_merge($globalParams, $this->_params);
             if(!empty($params)) foreach($params as $key => $value) $this->{$key} = $value;
 
             // Render view
-            $this->_path = Skeltch::run($view);
-            $this->_content = $this->getBuffer();
+            $path = Skeltch::run($view);
+            $this->_content = $this->getBuffer($path);
             if($parse) echo $this->_content;
         }
 
@@ -63,11 +64,12 @@
 
         /**
          * Gets a view buffer.
+         * @param string $path View filename to include.
          * @return string The buffer contents as string.
          */
-        private function getBuffer(){
+        private function getBuffer(string $path){
             ob_start();
-            include($this->_path);
+            include($path);
             return ob_get_clean();
         }
 
@@ -78,7 +80,7 @@
          * @return void
          */
         public function renderView(string $view, array $params = []){
-            SkeltchGo::getRenderer()->renderView($view, $params);
+            SkeltchGo::getRenderer()->renderView($view, array_merge($this->_params, $params));
         }
 
         /**
@@ -90,7 +92,7 @@
          * @return void
          */
         public function renderLayout(string $layout, string $view = '', array $params = []){
-            SkeltchGo::getRenderer()->renderLayout($layout, $view, $params);
+            SkeltchGo::getRenderer()->renderLayout($layout, $view, array_merge($this->_params, $params));
         }
 
         /**

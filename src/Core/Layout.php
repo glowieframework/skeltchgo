@@ -25,10 +25,10 @@
         private $_content;
 
         /**
-         * Layout compiled file path.
-         * @var string
+         * Layout local parameters.
+         * @var array
          */
-        private $_path;
+        private $_params;
 
         /**
          * Instantiates a new Layout object.
@@ -38,19 +38,20 @@
          */
         public function __construct(string $layout, string $view, array $params){
             // Parse parameters
-            $viewData = SkeltchGo::getRenderer()->view->toArray();
-            $params = array_merge($viewData, $params);
+            $this->_params = $params;
+            $globalParams = SkeltchGo::getRenderer()->view->toArray();
+            $params = array_merge($globalParams, $this->_params);
             if(!empty($params)) foreach($params as $key => $value) $this->{$key} = $value;
 
             // Parse view
             if(!empty($view)){
-                $view = new View($view, $params, false);
+                $view = new View($view, $this->_params, false);
                 $this->_content = $view->getContent();
             }
 
             // Render layout
-            $this->_path = Skeltch::run($layout);
-            include($this->_path);
+            $path = Skeltch::run($layout);
+            include($path);
         }
 
         /**
@@ -73,7 +74,7 @@
          * @return void
          */
         public function renderView(string $view, array $params = []){
-            SkeltchGo::getRenderer()->renderView($view, $params);
+            SkeltchGo::getRenderer()->renderView($view, array_merge($this->_params, $params));
         }
 
         /**
@@ -85,7 +86,7 @@
          * @return void
          */
         public function renderLayout(string $layout, string $view = '', array $params = []){
-            SkeltchGo::getRenderer()->renderLayout($layout, $view, $params);
+            SkeltchGo::getRenderer()->renderLayout($layout, $view, array_merge($this->_params, $params));
         }
 
         /**
