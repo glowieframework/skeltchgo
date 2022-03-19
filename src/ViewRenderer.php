@@ -18,7 +18,7 @@
      * @version 1.0
      */
     class ViewRenderer{
-        
+
         /**
          * Data to pass globally to views.
          * @var Element
@@ -46,42 +46,19 @@
          * @return void
          */
         public function renderView(string $view, array $params = []){
-            $view = SkeltchGo::getViewsFolder() . $view . (!SkeltchGo::endsWith($view, '.phtml') ? '.phtml' : '');
-            if(file_exists($view)){
-                return new View($view, $params, true);
-            }else{
-                throw new Exception(sprintf('View file "%s" not found', $view));
-            }
+            return new View($view, $params);
         }
 
         /**
          * Renders a layout file.
          * @param string $layout Layout filename. Must be a **.phtml** file inside the views folder, extension is not needed.
-         * @param string $view (Optional) View filename to render within layout. You can place its content by using `$this->getContent()`\
+         * @param string|null $view (Optional) View filename to render within layout. You can place its content by using `$this->getContent()`\
          * inside the layout file. Must be a **.phtml** file inside the views folder, extension is not needed.
          * @param array $params (Optional) Parameters to pass into the rendered view and layout. Should be an associative array with each variable name and value.
          * @return void
          */
-        public function renderLayout(string $layout, string $view = '', array $params = []){
-            $layout = SkeltchGo::getViewsFolder() . $layout . (!SkeltchGo::endsWith($layout, '.phtml') ? '.phtml' : '');
-            if(!empty($view)){
-                $view = SkeltchGo::getViewsFolder() . $view . (!SkeltchGo::endsWith($view, '.phtml') ? '.phtml' : '');
-                if (file_exists($layout)) {
-                    if(file_exists($view)){
-                        return new Layout($layout, $view, $params);
-                    }else{
-                        throw new Exception(sprintf('View file "%s" not found', $view));
-                    }
-                } else {
-                    throw new Exception(sprintf('Layout file "%s" not found', $layout));
-                }
-            }else{
-                if (file_exists($layout)) {
-                    return new Layout($layout, '', $params);
-                } else {
-                    throw new Exception(sprintf('Layout file "%s" not found', $layout));
-                }
-            }
+        public function renderLayout(string $layout, ?string $view = null, array $params = []){
+            return new Layout($layout, $view, $params);
         }
 
         /**

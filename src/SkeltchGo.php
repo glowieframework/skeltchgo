@@ -1,6 +1,8 @@
 <?php
     namespace Glowie\SkeltchGo;
 
+    use Countable;
+
     /**
      * Standalone Skeltch templating engine.
      * @category Templating engine
@@ -72,7 +74,7 @@
         public static function getCacheFolder(){
             return self::$cacheFolder;
         }
-        
+
         /**
          * Returns the view renderer instance.
          * @return ViewRenderer View renderer instance.
@@ -99,6 +101,56 @@
             $length = strlen($needle);
             if (!$length) return true;
             return substr($haystack, -$length) == $needle;
+        }
+
+        /**
+         * Returns a value from a multi-dimensional array in dot notation.
+         * @param array $array Array to get the value.
+         * @param mixed $key Key to get in dot notation.
+         * @param mixed $default (Optional) Default value to return if the key does not exist.
+         * @return mixed Returns the value if exists or the default if not.
+         */
+        public static function arrayGet(array $array, $key, $default = null){
+            // Checks if the key does not exist already
+            if(isset($array[$key])) return $array[$key];
+
+            // Loops through each key
+            foreach(explode('.', $key) as $segment){
+                if(!is_array($array) || !isset($array[$segment])) return $default;
+                $array = $array[$segment];
+            }
+
+            // Returns the value
+            return $array;
+        }
+
+        /**
+         * Sets a value to a key in a multi-dimensional array using dot notation.
+         * @param array $array Array to set the value.
+         * @param mixed $key Key to set in dot notation.
+         * @param mixed $value Value to set.
+         */
+        public static function arraySet(array &$array, $key, $value){
+            $item = &$array;
+            foreach(explode('.', $key) as $segment){
+                if(isset($item[$segment]) && !is_array($item[$segment])) $item[$segment] = [];
+                $item = &$item[$segment];
+            }
+            $item = $value;
+        }
+
+        /**
+         * Checks if a variable is empty.\
+         * A numeric/bool safe version of PHP `empty()` function.
+         * @var mixed $variable Variable to be checked.
+         * @return bool Returns true if the variable is empty, false otherwise.
+         */
+        public static function isEmpty($variable){
+            if(!isset($variable)) return true;
+            if(is_string($variable)) return trim($variable) === '';
+            if(is_numeric($variable) || is_bool($variable)) return false;
+            if($variable instanceof Countable) return count($variable) === 0;
+            return empty($variable);
         }
 
     }
