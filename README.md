@@ -13,8 +13,8 @@
 SkeltchGo is a standalone version of [Glowie](https://glowie.tk) Skeltch templating engine for PHP, intented to use outside the framework.
 
 ## Requirements
-- PHP version 7.4 or higher
-- Composer version 2.0 or higher
+- PHP version **7.4** or higher
+- Composer version **2.0** or higher
 
 ## Installation
 Through Composer:
@@ -53,7 +53,7 @@ $skeltch->renderView('myView');
 
 _From another view_
 ```php
-{@view('myView')}
+{view('myView')}
 ```
 
 ## Rendering layouts
@@ -66,13 +66,13 @@ $skeltch->renderLayout('myLayout', 'myView');
 
 _From another view_
 ```php
-{@layout('myLayout', 'myView')}
+{layout('myLayout', 'myView')}
 ```
 
 To retrieve the internal view content inside the layout use:
 
 ```php
-{@content}
+{content}
 ```
 
 ## Passing parameters
@@ -91,7 +91,7 @@ $skeltch->renderView('myView', [
 Then retrieve it in the view as a property of itself:
 
 ```php
-{{$this->myParam}}
+{{ $this->myParam }}
 ```
 
 ## View helpers
@@ -106,13 +106,13 @@ $skeltch->helper('sayHello', function($name){
 Then call it in your view file using:
 
 ```php
-{{$this->sayHello('World')}}
+{{ $this->sayHello('World') }}
 ```
 
 ## Documentation
 To learn how to use all methods and templating syntax, read [Skeltch complete documentation](https://glowie.tk/docs/latest/extra/skeltch).
 
-> **Note:** some Skeltch methods are restricted to the framework environment and are not available in SkeltchGo. Unavailable methods are: `babel`, `url`, `route`, `asset` and `csrf`.
+> **Note:** some Skeltch methods are restricted to the framework environment and are not available in SkeltchGo.
 
 ## Credits
 SkeltchGo and Glowie are currently being developed by [Gabriel Silva](https://eugabrielsilva.tk).

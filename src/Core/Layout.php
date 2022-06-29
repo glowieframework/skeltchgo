@@ -11,10 +11,9 @@
      * @category Layout
      * @package glowieframework/skeltchgo
      * @author Glowie
-     * @copyright Copyright (c) 2021
+     * @copyright Copyright (c) Glowie
      * @license MIT
      * @link https://glowie.tk
-     * @version 1.0
      */
     class Layout{
         use ElementTrait;

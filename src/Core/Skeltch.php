@@ -9,10 +9,9 @@
      * @category Templating engine
      * @package glowieframework/skeltchgo
      * @author Glowie
-     * @copyright Copyright (c) 2021
+     * @copyright Copyright (c) Glowie
      * @license MIT
      * @link https://glowie.tk
-     * @version 1.0
      */
     class Skeltch{
 
@@ -76,9 +75,9 @@
          * @return string Returns the compiled code.
          */
         private static function compileFunctions(string $code){
-            $code = preg_replace('~(?<!@){\s*@view\s*\((.+?)\)\s*}~is', '<?php $this->renderView($1); ?>', $code);
-            $code = preg_replace('~(?<!@){\s*@layout\s*\((.+?)\)\s*}~is', '<?php $this->renderLayout($1); ?>', $code);
-            $code = preg_replace('~(?<!@){\s*@content\s*}~is', '<?php echo $this->getContent(); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*view\s*\((.+?)\)\s*}~is', '<?php $this->renderView($1); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*layout\s*\((.+?)\)\s*}~is', '<?php $this->renderLayout($1); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*content\s*}~is', '<?php echo $this->getContent(); ?>', $code);
             return $code;
         }
 
