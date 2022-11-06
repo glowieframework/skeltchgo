@@ -97,9 +97,9 @@
          * @return bool Returns **true** if haystack ends with needle, **false** otherwise.
          */
         public static function endsWith(string $haystack, string $needle){
-            $length = strlen($needle);
+            $length = mb_strlen($needle);
             if (!$length) return true;
-            return substr($haystack, -$length) == $needle;
+            return mb_substr($haystack, -$length) == $needle;
         }
 
         /**

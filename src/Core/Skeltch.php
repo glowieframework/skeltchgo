@@ -16,6 +16,12 @@
     class Skeltch{
 
         /**
+         * Custom directives.
+         * @var array
+         */
+        private static $directives = [];
+
+        /**
          * Runs Skeltch view preprocessor.
          * @param string $filename View to process.
          * @return string Returns the processed file location.
@@ -27,10 +33,19 @@
 
             // Checks if cache is enabled or should be recompiled
             $tmpfile = $tmpdir . md5($filename) . '.tmp';
-            if(!SkeltchGo::getCache() || !file_exists($tmpfile) || filemtime($tmpfile) < filemtime($filename)) self::compile($filename, $tmpfile);
+            if(!SkeltchGo::getCache() || !is_file($tmpfile) || filemtime($tmpfile) < filemtime($filename)) self::compile($filename, $tmpfile);
 
             // Returns the processed file location
             return $tmpfile;
+        }
+
+        /**
+         * Sets a custom Skeltch directive.
+         * @param string $regex A valid **regex pattern** string. Check docs to see how to format this string correctly.
+         * @param string $replacement The **regex substitution** string to replace.
+         */
+        public static function directive(string $regex, string $replacement){
+            self::$directives[$regex] = $replacement;
         }
 
         /**
@@ -40,6 +55,7 @@
          */
         private static function compile(string $filename, string $target){
             $code = file_get_contents($filename);
+            $code = self::compileDirectives($code);
             $code = self::compileEchos($code);
             $code = self::compileLoops($code);
             $code = self::compileIfs($code);
@@ -48,6 +64,18 @@
             $code = self::compileComments($code);
             $code = self::compileIgnores($code);
             file_put_contents($target, $code);
+        }
+
+        /**
+         * Compiles custom directives.
+         * @param string $code Code to compile.
+         * @return string Returns the compiled code.
+         */
+        private static function compileDirectives(string $code){
+            foreach(self::$directives as $regex => $replacement){
+                $code = preg_replace('~(?<!@){\s*' . $regex . '\s*}~is', $replacement, $code);
+            }
+            return $code;
         }
 
         /**
@@ -77,7 +105,7 @@
         private static function compileFunctions(string $code){
             $code = preg_replace('~(?<!@){\s*view\s*\((.+?)\)\s*}~is', '<?php $this->renderView($1); ?>', $code);
             $code = preg_replace('~(?<!@){\s*layout\s*\((.+?)\)\s*}~is', '<?php $this->renderLayout($1); ?>', $code);
-            $code = preg_replace('~(?<!@){\s*content\s*}~is', '<?php echo $this->getContent(); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*content\s*}~is', '<?php echo $this->getView(); ?>', $code);
             return $code;
         }
 
