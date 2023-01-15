@@ -152,6 +152,29 @@
             return empty($variable);
         }
 
+        /**
+         * Serializes a variable to JSON with predefined flags. Also checks for Elements to correctly convert them.
+         * @param mixed $data Variable to be encoded.
+         * @param int $flags (Optional) JSON encoding flags (same as in `json_encode()` function).
+         * @param int $depth (Optional) JSON encoding maximum depth (same as in `json_encode()` function).
+         * @return string The resulting JSON string.
+         */
+        public static function jsonEncode($data, int $flags = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK, int $depth = 512){
+            if(is_callable([$data, 'toJson'])) return $data->toJson($flags, $depth);
+            return json_encode($data, $flags, $depth);
+        }
+
+        /**
+         * Dumps a variable in a human-readable way and ends the script execution.
+         * @param mixed $var Variable to be dumped.
+         * @return void
+         */
+        public static function dump($var){
+            ob_end_clean();
+            var_dump($var);
+            die();
+        }
+
     }
 
 ?>

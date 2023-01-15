@@ -58,16 +58,21 @@
 
         /**
          * Sets the value for a key in the Element data.
-         * @param string $key Key to set value (accepts dot notation keys).
-         * @param mixed $value Value to set.
+         * @param string|array $key Key to set value (accepts dot notation keys). You can also pass an associative array\
+         * of values to set at once and they will be merged into the Element data.
+         * @param mixed $value (Optional) Value to set.
          * @param bool $ignoreDot (Optional) Ignore dot notation keys.
          * @return Element Current Element instance for nested calls.
          */
-        public function set(string $key, $value, bool $ignoreDot = false){
-            if($ignoreDot){
-                $this->__data[$key] = $value;
+        public function set($key, $value = null, bool $ignoreDot = false){
+            if(is_array($key)){
+                $this->__data = array_merge($this->__data, $key);
             }else{
-                SkeltchGo::arraySet($this->__data, $key, $value);
+                if($ignoreDot){
+                    $this->__data[$key] = $value;
+                }else{
+                    SkeltchGo::arraySet($this->__data, $key, $value);
+                }
             }
             return $this;
         }
@@ -93,6 +98,18 @@
         }
 
         /**
+         * Removes all Element data, except the one that matches the specified key.
+         * @param string|array $key Key to keep. You can also use an array of keys to keep.
+         * @return Element Current Element instance for nested calls.
+         */
+        public function only($key){
+            foreach($this->__data as $field => $value){
+                if(!in_array($field, (array)$key)) $this->remove($field);
+            }
+            return $this;
+        }
+
+        /**
          * Checks if any value has been associated to a key in the Element data.
          * @param string $key Key to check.
          * @return bool Returns true or false.
@@ -103,11 +120,16 @@
 
         /**
          * Checks if any value has been associated to a key in the Element data.
-         * @param string $key Key to check (accepts dot notation keys).
+         * @param string|array $key Key to check (accepts dot notation keys). You can also use an array of keys.
          * @return bool Returns true or false.
          */
-        public function has(string $key){
-            return SkeltchGo::arrayGet($this->__data, $key) !== null;
+        public function has($key){
+            $result = false;
+            foreach((array)$key as $item){
+                if($result) break;
+                $result = SkeltchGo::arrayGet($this->__data, $item) !== null;
+            }
+            return $result;
         }
 
         /**
@@ -128,6 +150,14 @@
         }
 
         /**
+         * Returns the serializable JSON data for the Element.
+         * @return array Element data as an associative array.
+         */
+        public function jsonSerialize(){
+            return $this->toArray();
+        }
+
+        /**
          * Gets the Element data as JSON.
          * @param int $flags (Optional) JSON encoding flags (same as in `json_encode()` function).
          * @param int $depth (Optional) JSON encoding maximum depth (same as in `json_encode()` function).
@@ -138,7 +168,14 @@
         }
 
         /**
-         * Gets the Element data as JSON.
+         * Dumps the Element data.
+         */
+        public function dump(){
+            SkeltchGo::dump($this);
+        }
+
+        /**
+         * Gets the Element data as a string (data will be serialized as JSON).
          * @return string The resulting JSON string.
          */
         public function __toString(){

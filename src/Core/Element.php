@@ -2,6 +2,7 @@
     namespace Glowie\SkeltchGo\Core;
 
     use Glowie\SkeltchGo\Core\ElementTrait;
+    use JsonSerializable;
 
     /**
      * Generic safe object instance for SkeltchGo.
@@ -12,7 +13,7 @@
      * @license MIT
      * @link https://glowie.tk
      */
-    class Element{
+    class Element implements JsonSerializable{
         use ElementTrait;
 
         /**
