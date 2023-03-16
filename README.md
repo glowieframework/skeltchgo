@@ -53,7 +53,20 @@ $skeltch->renderView('myView');
 
 _From another view_
 ```php
-{view('myView')}
+{ view('myView') }
+```
+
+## Rendering partials
+To render a view in a private scope, use partials. They will not inherit global or parent view parameters.
+
+_From the script_
+```php
+$skeltch->renderPartial('myView');
+```
+
+_From another view_
+```php
+{ partial('myView') }
 ```
 
 ## Rendering layouts
@@ -66,13 +79,13 @@ $skeltch->renderLayout('myLayout', 'myView');
 
 _From another view_
 ```php
-{layout('myLayout', 'myView')}
+{ layout('myLayout', 'myView') }
 ```
 
 To retrieve the internal view content inside the layout use:
 
 ```php
-{content}
+{ content }
 ```
 
 ## Passing parameters

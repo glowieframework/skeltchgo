@@ -87,8 +87,8 @@
         private static function compileIfs(string $code){
             $code = preg_replace('~(?<!@){\s*if\s*\((.+?)\)\s*}~is', '<?php if($1): ?>', $code);
             $code = preg_replace('~(?<!@){\s*isset\s*\((.+?)\)\s*}~is', '<?php if(isset($1)): ?>', $code);
-            $code = preg_replace('~(?<!@){\s*empty\s*\((.+?)\)\s*}~is', '<?php if(SkeltchGo::isEmpty($1)): ?>', $code);
-            $code = preg_replace('~(?<!@){\s*notempty\s*\((.+?)\)\s*}~is', '<?php if(!SkeltchGo::isEmpty($1)): ?>', $code);
+            $code = preg_replace('~(?<!@){\s*empty\s*\((.+?)\)\s*}~is', '<?php if(!isset($1) || SkeltchGo::isEmpty($1)): ?>', $code);
+            $code = preg_replace('~(?<!@){\s*notempty\s*\((.+?)\)\s*}~is', '<?php if(isset($1) && !SkeltchGo::isEmpty($1)): ?>', $code);
             $code = preg_replace('~(?<!@){\s*notset\s*\((.+?)\)\s*}~is', '<?php if(!isset($1)): ?>', $code);
             $code = preg_replace('~(?<!@){\s*else\s*if\s*\((.+?)\)\s*}~is', '<?php elseif($1): ?>', $code);
             $code = preg_replace('~(?<!@){\s*else\s*}~is', '<?php else: ?>', $code);
@@ -105,8 +105,10 @@
         private static function compileFunctions(string $code){
             $code = preg_replace('~(?<!@){\s*view\s*\((.+?)\)\s*}~is', '<?php $this->renderView($1); ?>', $code);
             $code = preg_replace('~(?<!@){\s*layout\s*\((.+?)\)\s*}~is', '<?php $this->renderLayout($1); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*partial\s*\((.+?)\)\s*}~is', '<?php $this->renderPartial($1); ?>', $code);
             $code = preg_replace('~(?<!@){\s*content\s*}~is', '<?php echo $this->getView(); ?>', $code);
             $code = preg_replace('~(?<!@){\s*json\s*\((.+?)\)\s*}~is', '<?php echo SkeltchGo::jsonEncode($1); ?>', $code);
+            $code = preg_replace('~(?<!@){\s*class\s*\((.+?)\)\s*}~is', '<?php echo SkeltchGo::cssArray($1); ?>', $code);
             return $code;
         }
 

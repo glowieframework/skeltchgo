@@ -53,8 +53,8 @@
         public static function make(string $viewsFolder = 'views', string $cacheFolder = 'cache', bool $cache = true){
             self::$cache = $cache;
             self::$renderer = new ViewRenderer();
-            self::$cacheFolder = $cacheFolder . (!self::endsWith($cacheFolder, '/') ? '/' : '');
-            self::$viewsFolder = $viewsFolder . (!self::endsWith($viewsFolder, '/') ? '/' : '');
+            self::$cacheFolder = rtrim($cacheFolder, '/') . '/';
+            self::$viewsFolder = rtrim($viewsFolder, '/') . '/';
             return self::$renderer;
         }
 
@@ -146,8 +146,8 @@
          */
         public static function isEmpty($variable){
             if(!isset($variable)) return true;
-            if(is_string($variable)) return trim($variable) === '';
             if(is_numeric($variable) || is_bool($variable)) return false;
+            if(is_string($variable)) return trim($variable) === '';
             if($variable instanceof Countable) return count($variable) === 0;
             return empty($variable);
         }
@@ -162,6 +162,24 @@
         public static function jsonEncode($data, int $flags = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK, int $depth = 512){
             if(is_callable([$data, 'toJson'])) return $data->toJson($flags, $depth);
             return json_encode($data, $flags, $depth);
+        }
+
+        /**
+         * Returns a CSS classlist string based on giving conditions.
+         * @param array $array Array of conditions. The key must be the class name, and the value a boolean expression.\
+         * If you omit the key, the class will be added anyway.
+         * @return string Returns the classlist.
+         */
+        public static function cssArray(array $array){
+            $result = [];
+            foreach($array as $key => $value){
+                if(is_numeric($key)){
+                    $result[] = $value;
+                }else if($value){
+                    $result[] = $key;
+                }
+            }
+            return implode(' ', $result);
         }
 
         /**
