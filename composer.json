@@ -7,7 +7,7 @@
         "glowie",
         "php"
     ],
-    "homepage": "https://glowie.tk",
+    "homepage": "https://eugabrielsilva.tk/glowie",
     "support": {
         "issues": "https://github.com/glowieframework/skeltchgo/issues",
         "source": "https://github.com/glowieframework/skeltchgo"
@@ -15,8 +15,8 @@
     "authors": [
         {
             "name": "Gabriel Silva",
-            "email": "dev@glowie.tk",
-            "homepage": "https://glowie.tk"
+            "email": "glowie@eugabrielsilva.tk",
+            "homepage": "https://eugabrielsilva.tk/glowie"
         }
     ],
     "require": {

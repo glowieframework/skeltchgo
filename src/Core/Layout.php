@@ -5,6 +5,7 @@
     use Glowie\SkeltchGo\SkeltchGo;
     use Exception;
     use BadMethodCallException;
+    use JsonSerializable;
 
     /**
      * Layout core for SkeltchGo.
@@ -13,9 +14,9 @@
      * @author Glowie
      * @copyright Copyright (c) Glowie
      * @license MIT
-     * @link https://glowie.tk
+     * @link https://eugabrielsilva.tk/glowie
      */
-    class Layout{
+    class Layout implements JsonSerializable{
         use ElementTrait;
 
         /**
@@ -137,6 +138,31 @@
          */
         public function getView(){
             return $this->_view;
+        }
+
+        /**
+         * Starts a layout block.
+         * @param string $name Block name.
+         */
+        public static function startBlock(string $name){
+            View::startBlock($name);
+        }
+
+        /**
+         * Finishes a layout block.
+         */
+        public static function endBlock(){
+            View::endBlock();
+        }
+
+        /**
+         * Gets a block content.
+         * @param string $name Block name.
+         * @param string $default (Optional) Default content to return.
+         * @return string Returns the block content or the default if block is not found.
+         */
+        public static function getBlock(string $name, string $default = ''){
+            return View::getBlock($name, $default);
         }
 
     }

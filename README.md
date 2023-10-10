@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://glowie.tk" target="_blank"><img src="https://i.imgur.com/866QYsH.png" alt="SkeltchGo" width="250"/></a>
+    <a href="https://eugabrielsilva.tk/glowie" target="_blank"><img src="https://i.imgur.com/866QYsH.png" alt="SkeltchGo" width="250"/></a>
 </p>
 
 <p align="center">
@@ -10,7 +10,7 @@
 </p>
 
 ## Lightweight PHP templating engine
-SkeltchGo is a standalone version of [Glowie](https://glowie.tk) Skeltch templating engine for PHP, intented to use outside the framework.
+SkeltchGo is a standalone version of [Glowie](https://eugabrielsilva.tk/glowie) Skeltch templating engine for PHP, intented to use outside the framework.
 
 ## Requirements
 - PHP version **7.4** or higher
@@ -123,7 +123,7 @@ Then call it in your view file using:
 ```
 
 ## Documentation
-To learn how to use all methods and templating syntax, read [Skeltch complete documentation](https://glowie.tk/docs/latest/extra/skeltch).
+To learn how to use all methods and templating syntax, read [Skeltch complete documentation](https://eugabrielsilva.tk/glowie/docs/latest/extra/skeltch).
 
 > **Note:** some Skeltch methods are restricted to the framework environment and are not available in SkeltchGo.
 
